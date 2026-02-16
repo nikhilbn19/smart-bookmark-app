@@ -64,7 +64,7 @@ export default function AddBookmark({ userId, onBookmarkAdded }: AddBookmarkProp
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 md:hidden bg-indigo-600 text-white p-4 rounded-full shadow-lg hover:bg-indigo-500 transition-colors z-40"
+        className="fixed bottom-6 right-6 md:hidden bg-indigo-600 text-white p-4 rounded-full shadow-lg hover:bg-indigo-500 transition-colors z-40 cursor-pointer"
       >
         <Plus className="w-6 h-6" />
       </button>
@@ -76,7 +76,7 @@ export default function AddBookmark({ userId, onBookmarkAdded }: AddBookmarkProp
           <div className="bg-slate-900 rounded-2xl w-full max-w-md border border-slate-800 shadow-2xl p-6 relative animate-in fade-in zoom-in duration-200">
             <button
               onClick={() => setIsOpen(false)}
-              className="absolute top-4 right-4 text-slate-400 hover:text-white"
+              className="absolute top-4 right-4 text-slate-400 hover:text-white cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -134,7 +134,7 @@ export default function AddBookmark({ userId, onBookmarkAdded }: AddBookmarkProp
                 <button
                   type="button"
                   onClick={() => setIsOpen(false)}
-                  className="flex-1 px-4 py-2.5 rounded-xl text-slate-300 font-medium hover:bg-slate-800 transition-colors"
+                  className="flex-1 px-4 py-2.5 rounded-xl text-slate-300 font-medium hover:bg-slate-800 transition-colors cursor-pointer"
                   disabled={isLoading}
                 >
                   Cancel
@@ -142,7 +142,7 @@ export default function AddBookmark({ userId, onBookmarkAdded }: AddBookmarkProp
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-2.5 px-4 rounded-xl shadow-lg shadow-indigo-900/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  className="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-2.5 px-4 rounded-xl shadow-lg shadow-indigo-900/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer"
                 >
                   {isLoading ? (
                     <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />

@@ -50,7 +50,7 @@ export default function LoginPage() {
         <button
           onClick={handleGoogleSignIn}
           disabled={isLoading}
-          className="w-full bg-white hover:bg-slate-50 text-slate-900 font-semibold py-3.5 px-4 rounded-xl shadow-lg transition-all duration-200 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed group relative z-10"
+          className="w-full bg-white hover:bg-slate-50 text-slate-900 font-semibold py-3.5 px-4 rounded-xl shadow-lg transition-all duration-200 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed group relative z-10 cursor-pointer"
         >
           {isLoading ? (
             <div className="w-5 h-5 border-2 border-slate-900 border-t-transparent rounded-full animate-spin" />

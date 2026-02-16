@@ -62,13 +62,13 @@ export default function BookmarkCard({ bookmark, onDelete }: BookmarkCardProps) 
       href={bookmark.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group bg-slate-800/50 hover:bg-slate-800 border border-slate-700 hover:border-indigo-500/50 rounded-xl p-4 transition-all duration-200 flex flex-col h-full relative overflow-hidden"
+      className="group bg-slate-800/50 hover:bg-slate-800 border border-slate-700 hover:border-indigo-500/50 rounded-xl p-4 transition-all duration-200 flex flex-col h-full relative overflow-hidden cursor-pointer"
     >
       <div className="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity">
         <button
           onClick={handleDelete}
           disabled={isDeleting}
-          className="p-2 bg-slate-900/80 hover:bg-red-500/10 text-slate-400 hover:text-red-400 rounded-lg backdrop-blur-sm transition-colors"
+          className="p-2 bg-slate-900/80 hover:bg-red-500/10 text-slate-400 hover:text-red-400 rounded-lg backdrop-blur-sm transition-colors cursor-pointer"
         >
           {isDeleting ? (
             <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />

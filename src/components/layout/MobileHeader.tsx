@@ -30,7 +30,7 @@ export default function MobileHeader({ user }: MobileHeaderProps) {
         </div>
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="text-slate-400 hover:text-white p-2"
+          className="text-slate-400 hover:text-white p-2 cursor-pointer"
         >
           {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
@@ -55,7 +55,7 @@ export default function MobileHeader({ user }: MobileHeaderProps) {
           </div>
           <button
             onClick={handleSignOut}
-            className="w-full flex items-center justify-center gap-2 bg-slate-800 text-slate-300 py-3 rounded-lg hover:bg-slate-700 transition-colors"
+            className="w-full flex items-center justify-center gap-2 bg-slate-800 text-slate-300 py-3 rounded-lg hover:bg-slate-700 transition-colors cursor-pointer"
           >
             <LogOut className="w-4 h-4" />
             <span>Sign Out</span>

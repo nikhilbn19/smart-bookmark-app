@@ -39,7 +39,7 @@ export default function Sidebar({ user }: SidebarProps) {
 
         <button 
           onClick={() => document.getElementById('open-add-bookmark-modal')?.click()}
-          className="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-indigo-900/20 group"
+          className="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-indigo-900/20 group cursor-pointer"
         >
           <Plus className="w-5 h-5 group-hover:scale-110 transition-transform" />
           <span className="font-medium">New Bookmark</span>
@@ -53,7 +53,7 @@ export default function Sidebar({ user }: SidebarProps) {
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+              className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors cursor-pointer ${
                 isActive
                   ? 'bg-slate-800 text-white'
                   : 'text-slate-400 hover:bg-slate-800/50 hover:text-white'
@@ -88,7 +88,7 @@ export default function Sidebar({ user }: SidebarProps) {
         </div>
         <button
           onClick={handleSignOut}
-          className="w-full flex items-center gap-3 px-4 py-2 text-slate-400 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors text-sm"
+          className="w-full flex items-center gap-3 px-4 py-2 text-slate-400 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors text-sm cursor-pointer"
         >
           <LogOut className="w-4 h-4" />
           <span>Sign Out</span>
