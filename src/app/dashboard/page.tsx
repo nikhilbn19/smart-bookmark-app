@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
-import Navbar from '@/components/Navbar'
+import Sidebar from '@/components/layout/Sidebar'
+import MobileHeader from '@/components/layout/MobileHeader'
 import BookmarkManager from '@/components/BookmarkManager'
 
 export default async function DashboardPage() {
@@ -26,11 +27,20 @@ export default async function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500">
-      <Navbar user={user} />
-      <main className="max-w-4xl mx-auto px-4 py-8">
-        <BookmarkManager initialBookmarks={bookmarks || []} userId={user.id} />
-      </main>
+    <div className="min-h-screen bg-slate-950 text-slate-200">
+      <Sidebar user={user} />
+      
+      <div className="md:pl-64 flex flex-col min-h-screen">
+        <MobileHeader user={user} />
+        
+        <main className="flex-1 p-4 md:p-8 max-w-7xl mx-auto w-full">
+          <div className="mb-8 md:hidden">
+            <h1 className="text-2xl font-bold text-white">My Bookmarks</h1>
+          </div>
+          
+          <BookmarkManager initialBookmarks={bookmarks || []} userId={user.id} />
+        </main>
+      </div>
     </div>
   )
 }

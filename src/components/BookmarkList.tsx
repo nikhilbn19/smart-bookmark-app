@@ -80,36 +80,42 @@ const BookmarkList = forwardRef<{ addBookmark: (bookmark: Bookmark) => void }, B
 
   if (bookmarks.length === 0) {
     return (
-      <div className="bg-white/10 backdrop-blur-lg rounded-xl p-12 border border-white/20 text-center">
-        <svg
-          className="w-16 h-16 text-white/30 mx-auto mb-4"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
-          />
-        </svg>
-        <h3 className="text-xl font-semibold text-white/80 mb-2">No bookmarks yet</h3>
-        <p className="text-white/60">Add your first bookmark to get started!</p>
+      <div className="bg-slate-800/50 rounded-xl p-12 border border-slate-700/50 text-center">
+        <div className="bg-slate-800 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg
+            className="w-8 h-8 text-slate-500"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
+            />
+          </svg>
+        </div>
+        <h3 className="text-xl font-semibold text-white mb-2">No bookmarks yet</h3>
+        <p className="text-slate-400">Add your first bookmark to get started!</p>
       </div>
     )
   }
 
   return (
-    <div className="space-y-3">
-      <div className="flex items-center justify-between mb-4">
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
         <h3 className="text-lg font-semibold text-white">
           {bookmarks.length} {bookmarks.length === 1 ? 'Bookmark' : 'Bookmarks'}
         </h3>
       </div>
-      {bookmarks.map((bookmark) => (
-        <BookmarkCard key={bookmark.id} bookmark={bookmark} onDelete={handleDelete} />
-      ))}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {bookmarks.map((bookmark) => (
+          <div key={bookmark.id} className="h-full">
+            <BookmarkCard bookmark={bookmark} onDelete={handleDelete} />
+          </div>
+        ))}
+      </div>
     </div>
   )
 })

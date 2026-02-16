@@ -2,6 +2,7 @@
 
 import { createClient } from '@/lib/supabase/client'
 import { useState } from 'react'
+import { ExternalLink, Trash2, Calendar, Globe } from 'lucide-react'
 
 interface Bookmark {
   id: string
@@ -19,8 +20,11 @@ export default function BookmarkCard({ bookmark, onDelete }: BookmarkCardProps) 
   const [isDeleting, setIsDeleting] = useState(false)
   const supabase = createClient()
 
-  const handleDelete = async () => {
-    if (!confirm('Are you sure you want to delete this bookmark?')) return
+  const handleDelete = async (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    
+    if (!confirm('Delete this bookmark?')) return
 
     setIsDeleting(true)
     try {
@@ -33,60 +37,77 @@ export default function BookmarkCard({ bookmark, onDelete }: BookmarkCardProps) 
       onDelete?.(bookmark.id)
     } catch (err: any) {
       console.error('Error deleting bookmark:', err)
-      alert('Failed to delete bookmark')
       setIsDeleting(false)
     }
   }
 
   const formatDate = (dateString: string) => {
-    const date = new Date(dateString)
-    return date.toLocaleDateString('en-US', {
+    return new Date(dateString).toLocaleDateString('en-US', {
       month: 'short',
       day: 'numeric',
-      year: 'numeric',
     })
   }
 
-  return (
-    <div className="bg-white/10 backdrop-blur-lg rounded-lg p-4 border border-white/20 hover:bg-white/15 transition-all duration-200 group">
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex-1 min-w-0">
-          <h4 className="text-white font-semibold text-lg mb-1 truncate">
-            {bookmark.title}
-          </h4>
-          <a
-            href={bookmark.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-300 hover:text-blue-200 text-sm break-all line-clamp-2 transition-colors"
-          >
-            {bookmark.url}
-          </a>
-          <p className="text-white/50 text-xs mt-2">
-            Added {formatDate(bookmark.created_at)}
-          </p>
-        </div>
+  const getFaviconUrl = (url: string) => {
+    try {
+      const hostname = new URL(url).hostname
+      return `https://www.google.com/s2/favicons?domain=${hostname}&sz=64`
+    } catch {
+      return null
+    }
+  }
 
+  return (
+    <a
+      href={bookmark.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group bg-slate-800/50 hover:bg-slate-800 border border-slate-700 hover:border-indigo-500/50 rounded-xl p-4 transition-all duration-200 flex flex-col h-full relative overflow-hidden"
+    >
+      <div className="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity">
         <button
           onClick={handleDelete}
           disabled={isDeleting}
-          className="flex-shrink-0 text-red-300 hover:text-red-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed p-2 rounded-lg hover:bg-red-500/20"
-          title="Delete bookmark"
+          className="p-2 bg-slate-900/80 hover:bg-red-500/10 text-slate-400 hover:text-red-400 rounded-lg backdrop-blur-sm transition-colors"
         >
           {isDeleting ? (
-            <div className="w-5 h-5 border-2 border-red-300 border-t-transparent rounded-full animate-spin" />
+            <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
           ) : (
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-              />
-            </svg>
+            <Trash2 className="w-4 h-4" />
           )}
         </button>
       </div>
-    </div>
+
+      <div className="flex items-start gap-4 mb-4">
+        <div className="w-10 h-10 rounded-lg bg-slate-700/50 p-2 flex items-center justify-center shrink-0">
+          <img
+            src={getFaviconUrl(bookmark.url) || ''}
+            alt=""
+            className="w-6 h-6 object-contain"
+            onError={(e) => {
+              e.currentTarget.style.display = 'none'
+              e.currentTarget.nextElementSibling?.classList.remove('hidden')
+            }}
+          />
+          <Globe className="w-5 h-5 text-slate-400 hidden" />
+        </div>
+        <div className="flex-1 min-w-0 pr-8">
+          <h3 className="font-semibold text-white truncate group-hover:text-indigo-400 transition-colors">
+            {bookmark.title}
+          </h3>
+          <p className="text-sm text-slate-400 truncate mt-1">
+            {new URL(bookmark.url).hostname}
+          </p>
+        </div>
+      </div>
+
+      <div className="mt-auto pt-4 border-t border-slate-700/50 flex items-center justify-between text-xs text-slate-500">
+        <div className="flex items-center gap-1.5">
+          <Calendar className="w-3.5 h-3.5" />
+          <span>{formatDate(bookmark.created_at)}</span>
+        </div>
+        <ExternalLink className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
+      </div>
+    </a>
   )
 }
