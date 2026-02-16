@@ -1,8 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import Navbar from '@/components/Navbar'
-import AddBookmark from '@/components/AddBookmark'
-import BookmarkList from '@/components/BookmarkList'
+import BookmarkManager from '@/components/BookmarkManager'
 
 export default async function DashboardPage() {
   const supabase = await createClient()
@@ -30,10 +29,7 @@ export default async function DashboardPage() {
     <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500">
       <Navbar user={user} />
       <main className="max-w-4xl mx-auto px-4 py-8">
-        <div className="space-y-6">
-          <AddBookmark userId={user.id} />
-          <BookmarkList initialBookmarks={bookmarks || []} userId={user.id} />
-        </div>
+        <BookmarkManager initialBookmarks={bookmarks || []} userId={user.id} />
       </main>
     </div>
   )

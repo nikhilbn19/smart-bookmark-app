@@ -1,7 +1,7 @@
 'use client'
 
 import { createClient } from '@/lib/supabase/client'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, forwardRef, useImperativeHandle } from 'react'
 import BookmarkCard from './BookmarkCard'
 
 interface Bookmark {
@@ -15,11 +15,25 @@ interface Bookmark {
 interface BookmarkListProps {
   initialBookmarks: Bookmark[]
   userId: string
+  onAdd?: (bookmark: Bookmark) => void
 }
 
-export default function BookmarkList({ initialBookmarks, userId }: BookmarkListProps) {
-  const [bookmarks, setBookmarks] = useState<Bookmark[]>(initialBookmarks)
-  const supabase = createClient()
+const BookmarkList = forwardRef<{ addBookmark: (bookmark: Bookmark) => void }, BookmarkListProps>(
+  ({ initialBookmarks, userId }, ref) => {
+    const [bookmarks, setBookmarks] = useState<Bookmark[]>(initialBookmarks)
+    const supabase = createClient()
+
+    // Expose the add handler to parent via ref
+    useImperativeHandle(ref, () => ({
+      addBookmark: (bookmark: Bookmark) => {
+        setBookmarks((current) => {
+          // Check if bookmark already exists (to avoid duplicates from realtime)
+          const exists = current.some((b) => b.id === bookmark.id)
+          if (exists) return current
+          return [bookmark, ...current]
+        })
+      },
+    }))
 
   useEffect(() => {
     // Set up realtime subscription
@@ -98,4 +112,8 @@ export default function BookmarkList({ initialBookmarks, userId }: BookmarkListP
       ))}
     </div>
   )
-}
+})
+
+BookmarkList.displayName = 'BookmarkList'
+
+export default BookmarkList

@@ -5,7 +5,7 @@ import { useState } from 'react'
 
 interface AddBookmarkProps {
   userId: string
-  onBookmarkAdded?: () => void
+  onBookmarkAdded?: (bookmark: any) => void
 }
 
 export default function AddBookmark({ userId, onBookmarkAdded }: AddBookmarkProps) {
@@ -51,7 +51,11 @@ export default function AddBookmark({ userId, onBookmarkAdded }: AddBookmarkProp
       // Clear form
       setTitle('')
       setUrl('')
-      onBookmarkAdded?.()
+      
+      // Pass the new bookmark to parent for optimistic update
+      if (data) {
+        onBookmarkAdded?.(data)
+      }
     } catch (err: any) {
       console.error('Error adding bookmark:', err)
       setError(err.message || 'Failed to add bookmark')
