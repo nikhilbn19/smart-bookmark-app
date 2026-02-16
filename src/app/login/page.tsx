@@ -3,6 +3,7 @@
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { BookCheck, Bookmark } from 'lucide-react'
 
 export const dynamic = 'force-dynamic'
 
@@ -32,20 +33,27 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500">
-      <div className="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-8 w-full max-w-md border border-white/20">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">Smart Bookmarks</h1>
-          <p className="text-white/80">Save and sync your favorite links</p>
+    <div className="min-h-screen flex items-center justify-center bg-slate-950 p-4">
+      <div className="bg-slate-900 rounded-2xl shadow-2xl p-8 w-full max-w-md border border-slate-800 relative overflow-hidden">
+        {/* Decorative background blur */}
+        <div className="absolute -top-20 -left-20 w-40 h-40 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-purple-500/20 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="text-center mb-8 relative z-10">
+          <div className="bg-indigo-500/10 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 transform rotate-3">
+            <Bookmark className="w-8 h-8 text-indigo-500" />
+          </div>
+          <h1 className="text-3xl font-bold text-white mb-2 tracking-tight">Welcome Back</h1>
+          <p className="text-slate-400">Sign in to SmartMark to continue</p>
         </div>
 
         <button
           onClick={handleGoogleSignIn}
           disabled={isLoading}
-          className="w-full bg-white hover:bg-gray-50 text-gray-800 font-semibold py-3 px-4 rounded-lg shadow-lg transition-all duration-200 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full bg-white hover:bg-slate-50 text-slate-900 font-semibold py-3.5 px-4 rounded-xl shadow-lg transition-all duration-200 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed group relative z-10"
         >
           {isLoading ? (
-            <div className="w-5 h-5 border-2 border-gray-800 border-t-transparent rounded-full animate-spin" />
+            <div className="w-5 h-5 border-2 border-slate-900 border-t-transparent rounded-full animate-spin" />
           ) : (
             <>
               <svg className="w-5 h-5" viewBox="0 0 24 24">
@@ -71,8 +79,8 @@ export default function LoginPage() {
           )}
         </button>
 
-        <p className="text-white/60 text-sm text-center mt-6">
-          Sign in to access your bookmarks from anywhere
+        <p className="text-slate-500 text-xs text-center mt-8 relative z-10">
+          By signing in, you agree to our Terms of Service and Privacy Policy
         </p>
       </div>
     </div>
