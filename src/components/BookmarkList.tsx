@@ -51,7 +51,12 @@ const BookmarkList = forwardRef<{ addBookmark: (bookmark: Bookmark) => void }, B
           console.log('Realtime event:', payload)
 
           if (payload.eventType === 'INSERT') {
-            setBookmarks((current) => [payload.new as Bookmark, ...current])
+            setBookmarks((current) => {
+              // Check if bookmark already exists (to avoid duplicates from optimistic updates)
+              const exists = current.some((b) => b.id === (payload.new as Bookmark).id)
+              if (exists) return current
+              return [payload.new as Bookmark, ...current]
+            })
           } else if (payload.eventType === 'DELETE') {
             setBookmarks((current) =>
               current.filter((bookmark) => bookmark.id !== payload.old.id)
