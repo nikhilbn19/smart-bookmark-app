@@ -36,13 +36,15 @@ export default function AddBookmark({ userId, onBookmarkAdded }: AddBookmarkProp
     setIsLoading(true)
 
     try {
-      const { error: insertError } = await supabase
+      const { data, error: insertError } = await supabase
         .from('bookmarks')
         .insert({
           title: title.trim(),
           url: url.trim(),
           user_id: userId,
         })
+        .select()
+        .single()
 
       if (insertError) throw insertError
 
