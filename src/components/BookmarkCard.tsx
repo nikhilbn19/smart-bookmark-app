@@ -64,7 +64,7 @@ export default function BookmarkCard({ bookmark, onDelete }: BookmarkCardProps) 
       rel="noopener noreferrer"
       className="group bg-slate-800/50 hover:bg-slate-800 border border-slate-700 hover:border-indigo-500/50 rounded-xl p-4 transition-all duration-200 flex flex-col h-full relative overflow-hidden cursor-pointer"
     >
-      <div className="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+      <div className="absolute top-0 right-0 p-4 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
         <button
           onClick={handleDelete}
           disabled={isDeleting}
