@@ -262,14 +262,4 @@ smart-bookmark-app/
 - [ ] Import/export bookmarks
 - [ ] Bookmark sharing
 
-## 📄 License
 
-MIT
-
-## 🤝 Contributing
-
-Contributions, issues, and feature requests are welcome!
-
----
-
-**Built with ❤️ using Next.js and Supabase**
