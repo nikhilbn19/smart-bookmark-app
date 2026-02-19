@@ -23,8 +23,6 @@ export default function Sidebar({ user }: SidebarProps) {
 
   const navItems = [
     { icon: Home, label: 'All Bookmarks', href: '/dashboard' },
-    // Future: { icon: Heart, label: 'Favorites', href: '/dashboard/favorites' },
-    // Future: { icon: Clock, label: 'Read Later', href: '/dashboard/read-later' },
   ]
 
   return (
@@ -97,3 +95,4 @@ export default function Sidebar({ user }: SidebarProps) {
     </aside>
   )
 }
+

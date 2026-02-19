@@ -69,8 +69,6 @@ export default function AddBookmark({ userId, onBookmarkAdded }: AddBookmarkProp
         <Plus className="w-6 h-6" />
       </button>
 
-      {/* Desktop Add Button - rendered in Sidebar usually, but keeping here for fallback */}
-      
       {isOpen && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-slate-900 rounded-2xl w-full max-w-md border border-slate-800 shadow-2xl p-6 relative animate-in fade-in zoom-in duration-200">
@@ -159,8 +157,6 @@ export default function AddBookmark({ userId, onBookmarkAdded }: AddBookmarkProp
         </div>
       )}
 
-      {/* Trigger for Desktop - we'll handle this communication better via a context or prop later, 
-          but for now let's expose a button we can click if sidebar button is clicked */}
       <button 
         id="open-add-bookmark-modal" 
         className="hidden" 
@@ -169,3 +165,4 @@ export default function AddBookmark({ userId, onBookmarkAdded }: AddBookmarkProp
     </>
   )
 }
+

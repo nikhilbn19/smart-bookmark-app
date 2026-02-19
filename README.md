@@ -52,7 +52,6 @@ npm install
 2. Run the following SQL in the SQL Editor:
 
 ```sql
--- Create bookmarks table
 CREATE TABLE bookmarks (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
@@ -61,10 +60,8 @@ CREATE TABLE bookmarks (
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- Enable Row Level Security
 ALTER TABLE bookmarks ENABLE ROW LEVEL SECURITY;
 
--- Create policies
 CREATE POLICY "Users can view their own bookmarks"
   ON bookmarks FOR SELECT
   USING (auth.uid() = user_id);
@@ -77,9 +74,9 @@ CREATE POLICY "Users can delete their own bookmarks"
   ON bookmarks FOR DELETE
   USING (auth.uid() = user_id);
 
--- Enable Realtime
 ALTER PUBLICATION supabase_realtime ADD TABLE bookmarks;
 ```
+
 
 3. Configure Google OAuth:
    - Go to **Authentication** > **Providers** > **Google**
@@ -161,14 +158,12 @@ export const dynamic = 'force-dynamic'
 3. Calling `addBookmark` immediately after successful insertion
 
 ```typescript
-// BookmarkList.tsx
 const BookmarkList = forwardRef<BookmarkListRef, BookmarkListProps>((props, ref) => {
   useImperativeHandle(ref, () => ({
     addBookmark: (bookmark: Bookmark) => {
       setBookmarks(prev => [bookmark, ...prev])
     }
   }))
-  // ...
 })
 ```
 
@@ -203,9 +198,10 @@ const BookmarkList = forwardRef<BookmarkListRef, BookmarkListProps>((props, ref)
 const { data, error } = await supabase
   .from('bookmarks')
   .insert([newBookmark])
-  .select()  // ← This returns the inserted data
+  .select()
   .single()
 ```
+
 
 ### Problem 5: Environment Variables in Vercel
 

@@ -35,7 +35,6 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-950 p-4">
       <div className="bg-slate-900 rounded-2xl shadow-2xl p-8 w-full max-w-md border border-slate-800 relative overflow-hidden">
-        {/* Decorative background blur */}
         <div className="absolute -top-20 -left-20 w-40 h-40 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-purple-500/20 rounded-full blur-3xl pointer-events-none" />
 
@@ -86,3 +85,4 @@ export default function LoginPage() {
     </div>
   )
 }
+

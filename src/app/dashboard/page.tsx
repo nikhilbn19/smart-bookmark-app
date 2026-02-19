@@ -17,7 +17,6 @@ export default async function DashboardPage() {
     redirect('/login')
   }
 
-  // Fetch initial bookmarks
   const { data: bookmarks, error } = await supabase
     .from('bookmarks')
     .select('*')
@@ -46,3 +45,4 @@ export default async function DashboardPage() {
     </div>
   )
 }
+

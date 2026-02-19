@@ -23,11 +23,9 @@ const BookmarkList = forwardRef<{ addBookmark: (bookmark: Bookmark) => void }, B
     const [bookmarks, setBookmarks] = useState<Bookmark[]>(initialBookmarks)
     const supabase = createClient()
 
-    // Expose the add handler to parent via ref
     useImperativeHandle(ref, () => ({
       addBookmark: (bookmark: Bookmark) => {
         setBookmarks((current) => {
-          // Check if bookmark already exists (to avoid duplicates from realtime)
           const exists = current.some((b) => b.id === bookmark.id)
           if (exists) return current
           return [bookmark, ...current]
@@ -36,7 +34,6 @@ const BookmarkList = forwardRef<{ addBookmark: (bookmark: Bookmark) => void }, B
     }))
 
   useEffect(() => {
-    // Set up realtime subscription
     const channel = supabase
       .channel('bookmarks-changes')
       .on(
@@ -52,7 +49,6 @@ const BookmarkList = forwardRef<{ addBookmark: (bookmark: Bookmark) => void }, B
 
           if (payload.eventType === 'INSERT') {
             setBookmarks((current) => {
-              // Check if bookmark already exists (to avoid duplicates from optimistic updates)
               const exists = current.some((b) => b.id === (payload.new as Bookmark).id)
               if (exists) return current
               return [payload.new as Bookmark, ...current]
@@ -72,14 +68,12 @@ const BookmarkList = forwardRef<{ addBookmark: (bookmark: Bookmark) => void }, B
       )
       .subscribe()
 
-    // Cleanup subscription on unmount
     return () => {
       supabase.removeChannel(channel)
     }
   }, [userId, supabase])
 
   const handleDelete = (id: string) => {
-    // Optimistically remove from UI (realtime will also trigger, but this is faster)
     setBookmarks((current) => current.filter((bookmark) => bookmark.id !== id))
   }
 
@@ -128,3 +122,4 @@ const BookmarkList = forwardRef<{ addBookmark: (bookmark: Bookmark) => void }, B
 BookmarkList.displayName = 'BookmarkList'
 
 export default BookmarkList
+

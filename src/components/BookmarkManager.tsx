@@ -21,7 +21,6 @@ export default function BookmarkManager({ initialBookmarks, userId }: BookmarkMa
   const listRef = useRef<{ addBookmark: (bookmark: Bookmark) => void }>(null)
 
   const handleBookmarkAdded = (bookmark: Bookmark) => {
-    // Optimistically add to list immediately
     if (listRef.current) {
       listRef.current.addBookmark(bookmark)
     }
@@ -34,3 +33,4 @@ export default function BookmarkManager({ initialBookmarks, userId }: BookmarkMa
     </div>
   )
 }
+
